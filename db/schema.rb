@@ -32,4 +32,17 @@ ActiveRecord::Schema.define(version: 20170704205915) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  create_table "kycs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "state_id"
+    t.index ["state_id"], name: "index_kycs_on_state_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
