@@ -25,6 +25,16 @@ module KycApp
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.lograge.enabled = true
+    config.lograge.formatter = Lograge::Formatters::Json.new
+    config.lograge.custom_options = lambda do |event|
+      exceptions = %w(controller action format id)
+      {
+        params: event.payload[:params].except(*exceptions),
+        user: event.payload[:user] || 'anonymous'
+      }
+    end
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

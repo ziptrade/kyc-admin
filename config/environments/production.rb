@@ -88,4 +88,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[#{Rails.env}] ",
+      :sender_address => %{"KYC notifier" <kyc-admin@notifier.com>},
+      :exception_recipients => %w{egutter@10pines.com} # CHANGE ME
+    }
+
 end
