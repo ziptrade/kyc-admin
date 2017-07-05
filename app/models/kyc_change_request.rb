@@ -1,0 +1,2 @@
+class KycChangeRequest < ApplicationRecord
+end
