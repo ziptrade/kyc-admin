@@ -1,3 +1,24 @@
 class ApplicationController < ActionController::Base
+  include Clearance::Controller
+  include Godmin::ApplicationController
+  include Godmin::Authorization
+
   protect_from_forgery with: :exception
+
+  def append_info_to_payload(payload)
+    super
+    payload[:user] = "#{current_user.id}-#{current_user.email}" if signed_in?
+  end
+
+  def authenticate_admin_user
+    require_login
+  end
+
+  def admin_user
+    current_user
+  end
+
+  def admin_user_signed_in?
+    signed_in?
+  end
 end
