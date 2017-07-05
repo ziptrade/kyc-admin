@@ -1,0 +1,12 @@
+<div class="btn-group btn-group-sm pull-right">
+  <%= link_to(
+        translate_scoped("actions.reset_auth_token"),
+        {controller: :users,
+        action: :reset_auth_token,
+        id: resource},
+        method: :put,
+        class: "btn btn-default",
+        title: translate_scoped("actions.reset_auth_token_title", resource: resource),
+        data: { confirm: translate_scoped("actions.confirm_message") }
+      ) %>
+</div>
