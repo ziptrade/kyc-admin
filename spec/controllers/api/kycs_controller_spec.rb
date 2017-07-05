@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe KycsController, type: :controller do
-  def serialized_kyc_prototype(kyc)
+RSpec.describe Api::KycsController, type: :controller do
+  def serialized_kyc(kyc)
     {
         'data' => {
             'type' => 'kycs',
             'id' => kyc.id.to_s,
             'links' => {
-                'self' => '/kycs/1'
+                'self' => '/kycs/' + kyc.id.to_s
             }
         }
     }
@@ -20,8 +20,8 @@ RSpec.describe KycsController, type: :controller do
 
     it 'should create a new KYC and return a Kyc id' do
       expect(Kyc.count).to be 1
-      kyc_prototype = Kyc.first
-      expect(JSON.parse(response.body)).to eq serialized_kyc_prototype(kyc_prototype)
+      kyc = Kyc.first
+      expect(JSON.parse(response.body)).to eq serialized_kyc(kyc)
     end
 
     it 'should response with a created http status' do
