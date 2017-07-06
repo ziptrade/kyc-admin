@@ -25,12 +25,8 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
         post :create, params: serialized_change_request_for(kyc_id)
       end
 
-      it 'the kyc should have a pending review' do
-        expect(Kyc.find(kyc_id)).to be_pending_review
-      end
-
       it 'still should not be able to make movements' do
-        expect(Kyc.find(kyc_id)).not_to be_able_to_make_movements
+        expect(Kyc.find(kyc_id)).not_to be_usable
       end
     end
   end
