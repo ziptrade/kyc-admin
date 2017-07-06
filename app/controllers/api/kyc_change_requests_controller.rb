@@ -3,7 +3,7 @@ module Api
 
     def create
       kyc = Kyc.find(params.require(:kyc_id))
-      change_request = KycChangeRequest.new(changes_params)
+      change_request = Changes::KycChangeRequest.new(changes_params)
       kyc.add_change_request(change_request)
       kyc.save!
 
