@@ -29,7 +29,7 @@ RSpec.describe Api::KycsController, type: :controller do
     end
 
     it 'should not be able to make movements' do
-      expect(Kyc.first).not_to be_able_to_make_movements
+      expect(Kyc.first).not_to be_usable
     end
 
   end

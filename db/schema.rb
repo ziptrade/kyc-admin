@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705134223) do
+ActiveRecord::Schema.define(version: 20170706185850) do
 
-  create_table "kyc_change_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "changes_kyc_change_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "id_number"
+    t.string "id_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "states_states_id"
+    t.index ["states_states_id"], name: "index_changes_kyc_change_requests_on_states_states_id"
+  end
+
+  create_table "dockets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "id_number"
@@ -25,8 +36,6 @@ ActiveRecord::Schema.define(version: 20170705134223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "state_id"
-    t.bigint "kyc_change_request_id"
-    t.index ["kyc_change_request_id"], name: "index_kycs_on_kyc_change_request_id"
     t.index ["state_id"], name: "index_kycs_on_state_id"
   end
 
@@ -37,10 +46,14 @@ ActiveRecord::Schema.define(version: 20170705134223) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "states_states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "previous_state_id"
+    t.bigint "docket_id"
+    t.index ["docket_id"], name: "index_states_states_on_docket_id"
+    t.index ["previous_state_id"], name: "index_states_states_on_previous_state_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -56,4 +69,5 @@ ActiveRecord::Schema.define(version: 20170705134223) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "changes_kyc_change_requests", "states_states", column: "states_states_id"
 end
