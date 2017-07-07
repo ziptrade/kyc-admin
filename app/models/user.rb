@@ -13,13 +13,13 @@ class User < ApplicationRecord
   end
 
   private
-  
+
   def set_auth_token
     return if auth_token.present?
     self.auth_token = generate_auth_token
   end
 
   def generate_auth_token
-    SecureRandom.uuid.gsub(/\-/,'')
+    SecureRandom.uuid.delete('-')
   end
 end
