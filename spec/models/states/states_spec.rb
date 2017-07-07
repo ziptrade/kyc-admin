@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe States, type: :model do
   context 'When having an empty Kyc' do
-    let(:kyc) { Kyc.create_empty }
+    let(:kyc) { Kyc.create_empty! }
 
     context 'and adding changes' do
       let(:change_request) { create(:kyc_change_request) }

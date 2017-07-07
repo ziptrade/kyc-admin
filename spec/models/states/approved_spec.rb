@@ -3,12 +3,7 @@ require 'rails_helper'
 RSpec.describe States::Approved, type: :model do
 
   context 'When having a kyc with pending changes' do
-    let(:kyc) {
-      kyc = Kyc.create_empty
-      kyc.add_change_request(create(:kyc_change_request))
-      kyc.add_change_request(create(:kyc_change_request))
-      kyc
-    }
+    let(:kyc) { create(:kyc_with_pending_changes) }
 
     context 'and approving the kyc' do
 
