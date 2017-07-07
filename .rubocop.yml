@@ -1,7 +1,6 @@
 AllCops:
   Exclude:
-    - db/schema.rb
-    - vendor/**
+    - !ruby/regexp /(db|bin|script|config|vendor)\/.*/
 
 Documentation:
   Enabled: false
