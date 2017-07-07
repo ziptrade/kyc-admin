@@ -3,8 +3,14 @@ class Kyc < ApplicationRecord
 
   delegate :usable?, to: :state
 
-  def self.create_empty
-    self.create!(state: States::Empty.create!)
+  def self.create_empty!
+    kyc = self.new_empty
+    kyc.save!
+    kyc
+  end
+
+  def self.new_empty
+    self.new(state: States::Empty.create!)
   end
 
   def add_change_request(change_request)
@@ -13,5 +19,9 @@ class Kyc < ApplicationRecord
 
   def approve
     state.approve(self)
+  end
+
+  def reject_changes(reasons)
+    state.reject_changes(self, reasons)
   end
 end
