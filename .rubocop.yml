@@ -1,6 +1,7 @@
 AllCops:
-  Excludes:
+  Exclude:
     - db/schema.rb
+    - vendor/*
 
 Documentation:
   Enabled: false
