@@ -1,0 +1,15 @@
+AllCops:
+  Excludes:
+    - db/schema.rb
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
