@@ -5,6 +5,6 @@ class States::PendingChange < States::WithChange
   end
 
   def reject_changes(kyc, reasons)
-    kyc.state = States::RejectedChange.new(previous_state: previous_state, change_requests: change_requests, reasons: reasons)
+    kyc.state = States::AmendmentsRequested.new(previous_state: previous_state, change_requests: change_requests, reasons: reasons)
   end
 end

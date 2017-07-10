@@ -11,4 +11,8 @@ class States::WithChange < States::State
   def add_change_request(a_change_request, kyc)
     self.change_requests.push(a_change_request)
   end
+
+  def reject_changes(kyc, reasons)
+    self.subclass_responsibility
+  end
 end

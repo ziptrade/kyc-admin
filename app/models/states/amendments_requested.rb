@@ -1,4 +1,4 @@
-class States::RejectedChange < States::WithChange
+class States::AmendmentsRequested < States::WithChange
 
   def add_change_request(a_change_request, kyc)
     super(a_change_request, kyc)

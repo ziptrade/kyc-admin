@@ -2,6 +2,7 @@ class Kyc < ApplicationRecord
   belongs_to :state, :class_name => 'States::State'
 
   delegate :usable?, to: :state
+  delegate :docket, to: :state
 
   def self.create_empty!
     kyc = self.new_empty
@@ -23,5 +24,9 @@ class Kyc < ApplicationRecord
 
   def reject_changes(reasons)
     state.reject_changes(self, reasons)
+  end
+
+  def blacklist(reason)
+    state.blacklist(self, reason)
   end
 end
