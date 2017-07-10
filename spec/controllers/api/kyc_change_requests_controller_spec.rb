@@ -17,15 +17,22 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
     }
   end
 
+  include_context :shared_api_context
+  
   context 'When having an empty Kyc' do
     let(:kyc_id) { Kyc.create_empty!.id }
 
     context 'and requesting to change its information' do
-      before do
-        post :create, params: serialized_change_request_for(kyc_id)
+
+      it 'should create a new change request' do
+        expect {
+          post :create, params: serialized_change_request_for(kyc_id)
+        }.to change(Changes::KycChangeRequest, :count).by(1)
       end
 
       it 'still should not be able to make movements' do
+        post :create, params: serialized_change_request_for(kyc_id)
+
         expect(Kyc.find(kyc_id)).not_to be_usable
       end
     end

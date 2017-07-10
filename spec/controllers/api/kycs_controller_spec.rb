@@ -17,9 +17,6 @@ RSpec.describe Api::KycsController, type: :controller do
   include_context :shared_api_context
 
   context 'When requesting to create a KYC' do
-    it_should_behave_like 'internal server error', :create, lambda { |context| context.allow(Kyc).to context.receive(:create_empty!).and_raise('boom') }
-    it_should_behave_like 'authorization token is invalid', :create
-    it_should_behave_like 'authorization token is valid', :create
 
     def post_a_valid_message_to_create_a_kyc
       post :create, {}
