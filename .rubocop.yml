@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - !ruby/regexp /(db|bin|script|config|vendor)\/.*/
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false

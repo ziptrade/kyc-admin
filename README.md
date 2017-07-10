@@ -1,24 +1,28 @@
-# README
+# KYC Admin
+![Build Status](https://circleci.com/gh/bitex-la/kyc-admin.svg?style=shield&circle-token=:circle-token)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A KYC oriented CRM tool.
 
-Things you may want to cover:
+Profile your customer for KYC/AML compliance profile, using your own data,
+social networks, and criminal databases,
 
-* Ruby version
+Import and Export a customer history. Let them take it with them.
 
-* System dependencies
+Feed it with data from your other systems via JSON API.
 
-* Configuration
+Get notified whenever something looks suspicious.
 
-* Database creation
+## Current Status
 
-* Database initialization
+Under heavy development...
 
-* How to run the test suite
+## Development & Contributions
 
-* Services (job queues, cache servers, search engines, etc.)
+Just send a pull request. This is opinionated software so any changes to
+adapt it to existing regulations and open identity exchnage formats are
+welcome.
 
-* Deployment instructions
+## License
 
-* ...
+The gem is available as open source under the terms of the [MIT
+License](http://opensource.org/licenses/MIT).
