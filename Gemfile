@@ -38,6 +38,9 @@ gem 'lograge'
 # Gem for serializing in JSON API standard
 gem 'jsonapi-serializers'
 
+# Gem for serializing in JSON API standard
+gem 'jsonapi-serializers'
+
 gem 'error_handling_protocol', '~> 0.0.1'
 
 group :development, :test do
