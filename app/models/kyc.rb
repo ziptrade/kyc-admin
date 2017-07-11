@@ -1,17 +1,17 @@
 class Kyc < ApplicationRecord
-  belongs_to :state, :class_name => 'States::State'
+  belongs_to :state, class_name: 'States::State'
 
   delegate :usable?, to: :state
   delegate :docket, to: :state
 
   def self.create_empty!
-    kyc = self.new_empty
+    kyc = new_empty
     kyc.save!
     kyc
   end
 
   def self.new_empty
-    self.new(state: States::Empty.create!)
+    new(state: States::Empty.create!)
   end
 
   def add_change_request(change_request)

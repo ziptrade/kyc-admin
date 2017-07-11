@@ -38,8 +38,8 @@ gem 'lograge'
 # Gem for serializing in JSON API standard
 gem 'jsonapi-serializers'
 
-# Gem for serializing in JSON API standard
-gem 'jsonapi-serializers'
+# Gem for attaching files
+gem 'paperclip', '~> 5.0.0'
 
 gem 'error_handling_protocol', '~> 0.0.1'
 

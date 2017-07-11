@@ -8,9 +8,7 @@ RSpec.describe States::Approved, type: :model do
     context 'and approving the kyc' do
 
       it 'should change its state to Approved' do
-        expect do
-          kyc.approve
-        end.to change { kyc.state }
+        expect {kyc.approve}.to(change { kyc.state })
         expect(kyc.state).to be_a(States::Approved)
       end
 
@@ -28,13 +26,10 @@ RSpec.describe States::Approved, type: :model do
         it 'should change to PendingChange state' do
           expect do
             kyc.add_change_request(change_request)
-          end.to change { kyc.state }
+          end.to(change { kyc.state })
           expect(kyc.state).to be_a(States::PendingChange)
         end
       end
-
     end
-
   end
-
 end
