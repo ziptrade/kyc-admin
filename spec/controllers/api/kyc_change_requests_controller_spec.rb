@@ -18,7 +18,7 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
   end
 
   include_context :shared_api_context
-  
+
   context 'When having an empty Kyc' do
     let(:kyc_id) { Kyc.create_empty!.id }
 

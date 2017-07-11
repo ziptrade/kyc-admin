@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   subject(:user) { create(:user) }
 
   it { should validate_presence_of(:email) }

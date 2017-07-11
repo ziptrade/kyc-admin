@@ -37,10 +37,10 @@ RSpec.describe Api::KycsController, type: :controller do
 
       assert_json_response_is :created, serialized_kyc(kyc_created)
     end
-    
+
     it 'should not be able to make movements' do
       post_a_valid_message_to_create_a_kyc
-      
+
       expect(kyc_created).not_to be_usable
     end
 

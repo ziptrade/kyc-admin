@@ -11,4 +11,12 @@ class States::Approved < States::State
     true
   end
 
+  def blacklist(kyc, reason)
+    kyc.state = States::Blacklisted.new(docket: docket, reason: reason)
+  end
+
+  def add_change_request(a_change_request, kyc)
+    kyc.state = States::PendingChange.new(previous_state: kyc.state, change_requests: [a_change_request])
+  end
+
 end

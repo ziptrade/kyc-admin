@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707153303) do
+ActiveRecord::Schema.define(version: 20170710152103) do
 
   create_table "changes_kyc_change_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name"
@@ -53,8 +53,10 @@ ActiveRecord::Schema.define(version: 20170707153303) do
     t.bigint "previous_state_id"
     t.bigint "docket_id"
     t.string "reasons"
+    t.bigint "reason_id"
     t.index ["docket_id"], name: "index_states_states_on_docket_id"
     t.index ["previous_state_id"], name: "index_states_states_on_previous_state_id"
+    t.index ["reason_id"], name: "index_states_states_on_reason_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

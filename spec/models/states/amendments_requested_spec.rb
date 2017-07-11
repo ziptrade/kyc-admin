@@ -4,7 +4,7 @@ def reject_changes(reason)
   kyc_with_pending_changes.reject_changes(reason)
 end
 
-RSpec.describe States::RejectedChange, type: :model do
+RSpec.describe States::AmendmentsRequested, type: :model do
 
   context 'When having a Kyc with pending changes' do
     let(:kyc_with_pending_changes) { create(:kyc_with_pending_changes) }
@@ -16,7 +16,7 @@ RSpec.describe States::RejectedChange, type: :model do
         expect do
           reject_changes(reasons_to_be_rejected)
         end.to change { kyc_with_pending_changes.state }
-        expect(kyc_with_pending_changes.state).to be_a(States::RejectedChange)
+        expect(kyc_with_pending_changes.state).to be_a(States::AmendmentsRequested)
       end
 
       it 'should not be usable' do

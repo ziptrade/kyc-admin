@@ -19,6 +19,20 @@ RSpec.describe States::Approved, type: :model do
         expect(kyc).to be_usable
       end
 
+      context 'and requesting to make new changes' do
+        let(:change_request) { build(:kyc_change_request) }
+        before do
+          kyc.approve
+        end
+
+        it 'should change to PendingChange state' do
+          expect do
+            kyc.add_change_request(change_request)
+          end.to change { kyc.state }
+          expect(kyc.state).to be_a(States::PendingChange)
+        end
+      end
+
     end
 
   end

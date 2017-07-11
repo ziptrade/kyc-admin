@@ -8,5 +8,4 @@ FactoryGirl.define do
     email
     password 'qwerty'
   end
-
 end

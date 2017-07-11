@@ -17,6 +17,10 @@ module States
       raise StandardError.new("It's not possible to reject changes for a KYC in this state")
     end
 
+    def blacklist(kyc, reason)
+      self.subclass_responsibility
+    end
+
     def docket
       self.subclass_responsibility
     end
