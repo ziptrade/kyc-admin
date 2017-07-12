@@ -1,8 +1,7 @@
 module Api
   class ApiController < ActionController::Base
     include Clearance::Controller
-
-    protect_from_forgery with: :null_session
+    include AppendLoggerInfo
 
     before_action :authenticate_api_token!
 
@@ -15,8 +14,10 @@ module Api
     def authenticate_api_token!
       user = fetch_user_with_token
       if user.present?
+        logger.info "API AUTH: User [#{user.id}-#{user.email}] authorized"
         sign_in user
       else
+        logger.info 'API AUTH: Invalid token received. Authorization denied'
         headers['WWW-Authenticate'] = 'Token realm="Application"'
         render json: { success: false, error: 'unauthorized' }, status: :unauthorized
       end
