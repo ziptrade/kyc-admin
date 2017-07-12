@@ -1,6 +1,5 @@
 module Api
   class ApiController < ActionController::Base
-
     include Clearance::Controller
 
     protect_from_forgery with: :null_session
@@ -18,13 +17,13 @@ module Api
       if user.present?
         sign_in user
       else
-        self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-        render :json => { success: false, :error => 'unauthorized' }, :status => :unauthorized
+        headers['WWW-Authenticate'] = 'Token realm="Application"'
+        render json: { success: false, error: 'unauthorized' }, status: :unauthorized
       end
     end
 
     def fetch_user_with_token
-      authenticate_with_http_token do |api_token, options|
+      authenticate_with_http_token do |api_token, _options|
         User.find_by(auth_token: api_token)
       end
     end
@@ -33,8 +32,7 @@ module Api
       logger.error error.message
       logger.error error.backtrace.join("\n")
 
-      render :json => {success: false, :error => error.message}, status: http_error_code
+      render json: { success: false, error: error.message }, status: http_error_code
     end
-
   end
 end

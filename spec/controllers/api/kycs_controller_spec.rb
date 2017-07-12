@@ -1,23 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Api::KycsController, type: :controller do
-
   def serialized_kyc(kyc)
     {
-        'data' => {
-            'type' => 'kycs',
-            'id' => kyc.id.to_s,
-            'links' => {
-                'self' => '/kycs/' + kyc.id.to_s
-            }
+      'data' => {
+        'type' => 'kycs',
+        'id' => kyc.id.to_s,
+        'links' => {
+          'self' => '/kycs/' + kyc.id.to_s
         }
+      }
     }
   end
 
   include_context :shared_api_context
 
   context 'When requesting to create a KYC' do
-
     def post_a_valid_message_to_create_a_kyc
       post :create, {}
     end
@@ -27,9 +25,9 @@ RSpec.describe Api::KycsController, type: :controller do
     end
 
     it 'should create a new KYC and return a Kyc id' do
-      expect {
+      expect do
         post_a_valid_message_to_create_a_kyc
-      }.to change(Kyc, :count).by(1)
+      end.to change(Kyc, :count).by(1)
     end
 
     it 'should return a Kyc id' do
@@ -43,6 +41,5 @@ RSpec.describe Api::KycsController, type: :controller do
 
       expect(kyc_created).not_to be_usable
     end
-
   end
 end

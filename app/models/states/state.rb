@@ -1,28 +1,27 @@
 module States
   class State < ApplicationRecord
-
     def usable?
-      self.subclass_responsibility
+      subclass_responsibility
     end
 
-    def add_change_request(a_change_request, kyc)
-      self.subclass_responsibility
+    def add_change_request(_a_change_request, _kyc)
+      subclass_responsibility
     end
 
-    def approve(kyc)
-      raise StandardError.new("It's not possible to approve a KYC in this state")
+    def approve(_kyc)
+      raise StandardError, "It's not possible to approve a KYC in this state"
     end
 
-    def reject_changes(kyc, reasons)
-      raise StandardError.new("It's not possible to reject changes for a KYC in this state")
+    def reject_changes(_kyc, _reasons)
+      raise StandardError, "It's not possible to reject changes for a KYC in this state"
     end
 
-    def blacklist(kyc, reason)
-      self.subclass_responsibility
+    def blacklist(_kyc, _reason)
+      subclass_responsibility
     end
 
     def docket
-      self.subclass_responsibility
+      subclass_responsibility
     end
   end
 end

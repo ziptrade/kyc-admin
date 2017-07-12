@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe States::Approved, type: :model do
-
   context 'When having a kyc with pending changes' do
     let(:kyc) { create(:kyc_with_pending_changes) }
 
     context 'and approving the kyc' do
-
       it 'should change its state to Approved' do
-        expect {kyc.approve}.to(change { kyc.state })
+        expect { kyc.approve }.to(change { kyc.state })
         expect(kyc.state).to be_a(States::Approved)
       end
 

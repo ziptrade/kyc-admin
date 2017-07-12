@@ -1,6 +1,5 @@
 module Api
   class KycChangeRequestsController < Api::ApiController
-
     def create
       kyc = Kyc.find(params.require(:kyc_id))
       change_request = change_request_from_params

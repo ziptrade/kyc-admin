@@ -1,6 +1,5 @@
 module States
   class Empty < State
-
     def usable?
       false
     end

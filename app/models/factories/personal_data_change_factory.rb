@@ -11,4 +11,3 @@ module Factories
     end
   end
 end
-

@@ -5,5 +5,4 @@ class KycAttachment < ApplicationRecord
   delegate :original_filename, to: :file
   delegate :content_type, to: :file
   delegate :url, to: :file
-
 end

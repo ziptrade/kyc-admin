@@ -1,6 +1,7 @@
-class Changes::KycChangeRequest < ApplicationRecord
-
-  def apply(docket)
-    subclass_responsibility
+module Changes
+  class KycChangeRequest < ApplicationRecord
+    def apply(_docket)
+      subclass_responsibility
+    end
   end
 end

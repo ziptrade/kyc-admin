@@ -9,7 +9,7 @@ FactoryGirl.define do
       end
 
       factory :approved_kyc do
-        after(:build) { | kyc | kyc.approve }
+        after(:build, &:approve)
       end
     end
   end

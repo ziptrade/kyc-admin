@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe States::Blacklisted, type: :model do
-
   context 'When having an approved Kyc' do
     let(:kyc) { create(:approved_kyc) }
 
@@ -11,7 +10,7 @@ RSpec.describe States::Blacklisted, type: :model do
       it 'should change its state to Blacklisted' do
         expect do
           kyc.blacklist(reason)
-        end.to change { kyc.state }
+        end.to(change { kyc.state })
         expect(kyc.state).to be_a(States::Blacklisted)
       end
 
@@ -29,7 +28,7 @@ RSpec.describe States::Blacklisted, type: :model do
       it 'should have exactly the same docket as before' do
         expect do
           kyc.blacklist(reason)
-        end.not_to change { kyc.docket }
+        end.not_to(change { kyc.docket })
       end
 
       context 'and new changes are requested' do
@@ -41,7 +40,7 @@ RSpec.describe States::Blacklisted, type: :model do
         it 'should return to PendingChange state' do
           expect do
             kyc.add_change_request(kyc_change_request)
-          end.to change { kyc.state }
+          end.to(change { kyc.state })
           expect(kyc.state).to be_a(States::PendingChange)
         end
       end

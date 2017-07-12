@@ -1,18 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Api::KycChangeRequestsController, type: :controller do
+  PERSONAL_DATA_ATTRIBUTES = {
+    'first_name' => 'Roberto',
+    'last_name' => 'Carlos',
+    'id_number' => '10000000',
+    'id_type' => 'DNI'
+  }.freeze
 
   def change_personal_data_for(kyc_id)
     {
       'kyc_id' => kyc_id,
       'data' => {
         'type' => 'personal-data-changes',
-        'attributes' => {
-          'first_name' => 'Roberto',
-          'last_name' => 'Carlos',
-          'id_number' => '10000000',
-          'id_type' => 'DNI'
-        }
+        'attributes' => PERSONAL_DATA_ATTRIBUTES
       }
     }
   end
@@ -20,18 +21,20 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
   IMAGE_CONTENT_TYPE = 'image/png'.freeze
   ENCODE64_IMAGE = "data:#{IMAGE_CONTENT_TYPE};base64,#{Base64.encode64(IMAGE_FILE)}".freeze
 
+  ATTACHMENT_ATTRIBUTES = {
+    'attachment' => {
+      file_data: ENCODE64_IMAGE,
+      file_name: 'Document',
+      file_content_type: IMAGE_CONTENT_TYPE
+    }
+  }.freeze
+
   def add_attachment_for(kyc_id)
     {
       'kyc_id' => kyc_id,
       'data' => {
         'type' => 'add-attachments',
-        'attributes' => {
-          'attachment' => {
-            file_data: ENCODE64_IMAGE,
-            file_name: 'Document',
-            file_content_type: IMAGE_CONTENT_TYPE
-          }
-        }
+        'attributes' => ATTACHMENT_ATTRIBUTES
       }
     }
   end
@@ -52,7 +55,6 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
         post :create, params: change_personal_data_for(kyc_id)
         expect(Kyc.find(kyc_id)).not_to be_usable
       end
-
     end
 
     context 'and requesting to add an attachment' do
