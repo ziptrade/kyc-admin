@@ -16,8 +16,12 @@ module States
       raise StandardError, "It's not possible to reject changes for a KYC in this state"
     end
 
-    def blacklist(_kyc, _reason)
-      subclass_responsibility
+    def blacklist(kyc, reason)
+      kyc.change_to_state(Blacklisted.new(previous_state: self, reason: reason))
+    end
+
+    def remove_from_blacklist(_kyc)
+      raise StandardError, "It's not possible to remove from blacklist a KYC that's not there"
     end
 
     def docket

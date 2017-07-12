@@ -29,4 +29,12 @@ class Kyc < ApplicationRecord
   def blacklist(reason)
     state.blacklist(self, reason)
   end
+
+  def remove_from_blacklist
+    state.remove_from_blacklist(self)
+  end
+
+  def change_to_state(new_state)
+    self.state = new_state
+  end
 end

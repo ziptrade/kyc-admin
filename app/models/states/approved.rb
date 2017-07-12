@@ -12,12 +12,8 @@ module States
       true
     end
 
-    def blacklist(kyc, reason)
-      kyc.state = Blacklisted.new(docket: docket, reason: reason)
-    end
-
     def add_change_request(a_change_request, kyc)
-      kyc.state = PendingChange.new(previous_state: kyc.state, change_requests: [a_change_request])
+      kyc.change_to_state(PendingChange.new(previous_state: kyc.state, change_requests: [a_change_request]))
     end
   end
 end

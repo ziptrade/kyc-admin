@@ -5,7 +5,8 @@ module States
     end
 
     def add_change_request(a_change_request, kyc)
-      kyc.state = States::PendingChange.new(previous_state: kyc.state, change_requests: [a_change_request])
+      new_state = States::PendingChange.new(previous_state: kyc.state, change_requests: [a_change_request])
+      kyc.change_to_state(new_state)
     end
 
     def docket

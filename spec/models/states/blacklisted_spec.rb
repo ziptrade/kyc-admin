@@ -37,11 +37,20 @@ RSpec.describe States::Blacklisted, type: :model do
           kyc.blacklist(reason)
         end
 
-        it 'should return to PendingChange state' do
+        it 'should not be able to make those changes due to be blacklisted' do
           expect do
             kyc.add_change_request(kyc_change_request)
-          end.to(change { kyc.state })
-          expect(kyc.state).to be_a(States::PendingChange)
+          end.to(raise_error(StandardError, States::Blacklisted::CANT_MAKE_CHANGE_REQUEST_ERROR))
+          expect(kyc.state).to be_a(States::Blacklisted)
+        end
+      end
+
+      context 'and it is removed from the blacklist' do
+        it 'should return to its previous state' do
+          expect do
+            kyc.blacklist(reason)
+            kyc.remove_from_blacklist
+          end.not_to(change { kyc.state })
         end
       end
     end
