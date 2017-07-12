@@ -43,4 +43,7 @@ Rails.application.configure do
 
   # https://robots.thoughtbot.com/faster-tests-sign-in-through-the-back-door
   config.middleware.use Clearance::BackDoor
+
+  # Tells parperclip to put attachments in a test_files folder inside spec for tests
+  Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:class/:id_partition/:style.:extension"
 end

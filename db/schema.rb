@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 20170711122643) do
   end
 
   create_table "dockets_kyc_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "dockets_id"
-    t.bigint "kyc_attachments_id"
-    t.index ["dockets_id"], name: "index_dockets_kyc_attachments_on_dockets_id"
-    t.index ["kyc_attachments_id"], name: "index_dockets_kyc_attachments_on_kyc_attachments_id"
+    t.bigint "docket_id"
+    t.bigint "kyc_attachment_id"
+    t.index ["docket_id"], name: "index_dockets_kyc_attachments_on_docket_id"
+    t.index ["kyc_attachment_id"], name: "index_dockets_kyc_attachments_on_kyc_attachment_id"
   end
 
   create_table "kyc_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

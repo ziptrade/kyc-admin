@@ -17,14 +17,14 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
       }
     }
   end
-  IMAGE_FILE = File.join(Rails.root, 'spec', 'images', 'bitcoin.png')
+  IMAGE_FILE = File.open(File.join(Rails.root, 'spec', 'images', 'bitcoin.png'))
   IMAGE_CONTENT_TYPE = 'image/png'.freeze
-  ENCODE64_IMAGE = "data:#{IMAGE_CONTENT_TYPE};base64,#{Base64.encode64(IMAGE_FILE)}".freeze
+  ENCODE64_IMAGE = "data:#{IMAGE_CONTENT_TYPE};base64,#{Base64.encode64(IMAGE_FILE.read)}".freeze
 
   ATTACHMENT_ATTRIBUTES = {
     'attachment' => {
       file_data: ENCODE64_IMAGE,
-      file_name: 'Document',
+      file_name: 'Document.png',
       file_content_type: IMAGE_CONTENT_TYPE
     }
   }.freeze

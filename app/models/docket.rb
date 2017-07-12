@@ -8,6 +8,6 @@ class Docket < ApplicationRecord
   end
 
   def add_attachment(attachment)
-    attachments.push(attachment)
+    kyc_attachments.push(attachment)
   end
 end

@@ -3,7 +3,7 @@ module Changes
     belongs_to :kyc_attachment
 
     def apply(docket)
-      docket.add_attachment(attachment)
+      docket.add_attachment(kyc_attachment)
     end
 
     def self.create_with_file!(file)
