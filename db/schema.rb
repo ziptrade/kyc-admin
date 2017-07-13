@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711122643) do
+ActiveRecord::Schema.define(version: 20170713155035) do
 
   create_table "changes_kyc_change_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20170711122643) do
     t.index ["kyc_attachment_id"], name: "index_dockets_kyc_attachments_on_kyc_attachment_id"
   end
 
+  create_table "dockets_movement_restrictions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "docket_id"
+    t.bigint "movement_restriction_id"
+    t.index ["docket_id"], name: "index_dockets_movement_restrictions_on_docket_id"
+    t.index ["movement_restriction_id"], name: "index_dockets_movement_restrictions_on_movement_restriction_id"
+  end
+
   create_table "kyc_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "file_file_name"
     t.string "file_content_type"
@@ -56,6 +63,13 @@ ActiveRecord::Schema.define(version: 20170711122643) do
     t.datetime "updated_at", null: false
     t.bigint "state_id"
     t.index ["state_id"], name: "index_kycs_on_state_id"
+  end
+
+  create_table "movement_restrictions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "profiling_definition_id"
+    t.index ["profiling_definition_id"], name: "index_movement_restrictions_on_profiling_definition_id"
   end
 
   create_table "rejected_reasons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

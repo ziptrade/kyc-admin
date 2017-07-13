@@ -3,6 +3,7 @@ class Kyc < ApplicationRecord
 
   delegate :usable?, to: :state
   delegate :docket, to: :state
+  delegate :movement_restrictions, to: :docket
 
   def self.create_empty!
     kyc = new_empty
