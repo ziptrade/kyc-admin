@@ -10,7 +10,6 @@ module States
       false
     end
 
-
     def add_change_request(_a_change_request, _kyc)
       raise StandardError, CANT_MAKE_CHANGE_REQUEST_ERROR
     end
