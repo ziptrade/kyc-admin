@@ -27,4 +27,10 @@ Rails.application.routes.draw do
   # Disabled Clearence routes
   # get '/sign_up' => 'clearance/users#new', as: 'sign_up'
   root to: 'application#welcome'
+
+  namespace :api do
+    resources :kycs, only: [:create] do
+      resources :kyc_change_requests, only: [:create]
+    end
+  end
 end

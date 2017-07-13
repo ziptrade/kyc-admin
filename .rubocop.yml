@@ -13,3 +13,6 @@ Style/BlockComments:
 
 Metrics/BlockLength:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 120

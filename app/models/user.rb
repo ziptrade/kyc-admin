@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include Clearance::User
 
-  validates :email, :encrypted_password, :auth_token, presence: true
+  validates :email, :encrypted_password, presence: true
   validates :email, :auth_token, uniqueness: true
 
   before_create :set_auth_token
@@ -20,6 +20,6 @@ class User < ApplicationRecord
   end
 
   def generate_auth_token
-    SecureRandom.uuid.delete('-')
+    SecureRandom.hex(20).encode('UTF-8')
   end
 end

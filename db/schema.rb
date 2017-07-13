@@ -10,13 +10,72 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704205915) do
+ActiveRecord::Schema.define(version: 20170711122643) do
+
+  create_table "changes_kyc_change_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "id_number"
+    t.string "id_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "states_states_id"
+    t.string "type"
+    t.bigint "kyc_attachment_id"
+    t.index ["kyc_attachment_id"], name: "index_changes_kyc_change_requests_on_kyc_attachment_id"
+    t.index ["states_states_id"], name: "index_changes_kyc_change_requests_on_states_states_id"
+  end
+
+  create_table "dockets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "id_number"
+    t.string "id_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dockets_kyc_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "docket_id"
+    t.bigint "kyc_attachment_id"
+    t.index ["docket_id"], name: "index_dockets_kyc_attachments_on_docket_id"
+    t.index ["kyc_attachment_id"], name: "index_dockets_kyc_attachments_on_kyc_attachment_id"
+  end
+
+  create_table "kyc_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "file_file_name"
+    t.string "file_content_type"
+    t.integer "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kycs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "state_id"
+    t.index ["state_id"], name: "index_kycs_on_state_id"
+  end
 
   create_table "rejected_reasons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "states_states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "previous_state_id"
+    t.bigint "docket_id"
+    t.string "reasons"
+    t.bigint "reason_id"
+    t.index ["docket_id"], name: "index_states_states_on_docket_id"
+    t.index ["previous_state_id"], name: "index_states_states_on_previous_state_id"
+    t.index ["reason_id"], name: "index_states_states_on_reason_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -32,4 +91,5 @@ ActiveRecord::Schema.define(version: 20170704205915) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "changes_kyc_change_requests", "states_states", column: "states_states_id"
 end
