@@ -12,4 +12,10 @@ class Docket < ApplicationRecord
   def add_attachment(attachment)
     kyc_attachments.push(attachment)
   end
+
+  def register_movement(movement, kyc, alarm_caller)
+    movement_restrictions.each do |movement_restriction|
+      movement_restriction.notify_on_transgression(movement, kyc, alarm_caller)
+    end
+  end
 end

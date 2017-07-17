@@ -8,7 +8,7 @@ FactoryGirl.define do
         kyc.add_change_request(create(:kyc_change_request))
       end
 
-      factory :approved_kyc do
+      factory :approved_kyc, aliases: [:kyc_with_no_movements] do
         after(:build, &:approve)
       end
     end

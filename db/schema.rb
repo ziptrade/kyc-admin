@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713155035) do
+ActiveRecord::Schema.define(version: 20170717201652) do
 
   create_table "changes_kyc_change_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name"
@@ -69,7 +69,29 @@ ActiveRecord::Schema.define(version: 20170713155035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "profiling_definition_id"
+    t.integer "money_limit_cents", default: 0, null: false
+    t.string "money_limit_currency", default: "USD", null: false
+    t.bigint "period_id"
+    t.index ["period_id"], name: "index_movement_restrictions_on_period_id"
     t.index ["profiling_definition_id"], name: "index_movement_restrictions_on_profiling_definition_id"
+  end
+
+  create_table "movements_movements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.datetime "moment"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "kyc_id"
+    t.index ["kyc_id"], name: "index_movements_movements_on_kyc_id"
+  end
+
+  create_table "periods_periods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "times"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rejected_reasons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -90,6 +112,17 @@ ActiveRecord::Schema.define(version: 20170713155035) do
     t.index ["docket_id"], name: "index_states_states_on_docket_id"
     t.index ["previous_state_id"], name: "index_states_states_on_previous_state_id"
     t.index ["reason_id"], name: "index_states_states_on_reason_id"
+  end
+
+  create_table "transgressions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "movement_id"
+    t.bigint "movement_restriction_id"
+    t.integer "surpassing_amount_cents", default: 0, null: false
+    t.string "surpassing_amount_currency", default: "USD", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movement_id"], name: "index_transgressions_on_movement_id"
+    t.index ["movement_restriction_id"], name: "index_transgressions_on_movement_restriction_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

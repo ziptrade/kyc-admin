@@ -24,6 +24,10 @@ module States
       raise StandardError, "It's not possible to remove from blacklist a KYC that's not there"
     end
 
+    def register_movement(_movement, _kyc, _alarm_caller)
+      subclass_responsibility
+    end
+
     def docket
       subclass_responsibility
     end
