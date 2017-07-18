@@ -41,6 +41,9 @@ gem 'jsonapi-serializers'
 # Gem for attaching files
 gem 'paperclip', '~> 5.0.0'
 
+# Gem for handling money values
+gem 'money-rails', '~>1'
+
 gem 'error_handling_protocol', '~> 0.0.1'
 
 group :development, :test do

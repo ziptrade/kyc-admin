@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Changes::AddAttachment, type: :model do
-  context 'When having an approved Kyc' do
+  context 'When having a Kyc with minimum valid changes' do
     let(:kyc) { build(:kyc_with_minimum_valid_changes) }
     context 'and adding it an attachment' do
       let(:add_attachment) { build(:add_attachment) }

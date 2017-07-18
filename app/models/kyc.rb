@@ -1,8 +1,10 @@
 class Kyc < ApplicationRecord
   belongs_to :state, class_name: 'States::State'
+  has_many :previous_movements, class_name: 'Movements::Movement'
 
   delegate :usable?, to: :state
   delegate :docket, to: :state
+  delegate :movement_restrictions, to: :docket
 
   def self.create_empty!
     kyc = new_empty
@@ -36,5 +38,15 @@ class Kyc < ApplicationRecord
 
   def change_to_state(new_state)
     self.state = new_state
+  end
+
+  def register_movement(movement, alarm_caller)
+    state.register_movement(movement, self, alarm_caller)
+    previous_movements.push(movement)
+  end
+
+  def movements_between(period_start, period_end)
+    period = period_start..period_end
+    previous_movements.where(moment: period)
   end
 end
