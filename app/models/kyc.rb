@@ -45,7 +45,8 @@ class Kyc < ApplicationRecord
     previous_movements.push(movement)
   end
 
-  def movements_between(period_end, period_start)
-    previous_movements.where(moment: period_start..period_end)
+  def movements_between(period_start, period_end)
+    period = period_start..period_end
+    previous_movements.where(moment: period)
   end
 end
