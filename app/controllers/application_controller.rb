@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include Godmin::ApplicationController
   include Godmin::Authorization
   include AppendLoggerInfo
+  include KYCApplicationRailsModule
 
   protect_from_forgery with: :exception
 

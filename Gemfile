@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'clearance'
 gem 'godmin'
+gem 'jwt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

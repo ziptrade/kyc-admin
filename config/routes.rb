@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   # get '/sign_up' => 'clearance/users#new', as: 'sign_up'
   root to: 'application#welcome'
 
+  namespace :sso do
+    get :authorize, to: 'authentication#authorize'
+  end
+
   namespace :api do
     resources :kycs, only: %i[create show] do
       resources :kyc_change_requests, only: %i[create show]
