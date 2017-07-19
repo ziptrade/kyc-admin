@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :kyc, class: Kyc do
+  factory :kyc, aliases: [:empty_kyc], class: Kyc do
     initialize_with { Kyc.create_empty! }
 
     factory :kyc_with_pending_changes, aliases: [:kyc_with_minimum_valid_changes] do

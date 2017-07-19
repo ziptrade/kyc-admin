@@ -15,6 +15,10 @@ module Factories
       subclass_responsibility
     end
 
+    def change_request_params(params)
+      params.permit(:comment)
+    end
+
     def create_from!(params)
       change = build_from(params)
       change.save!

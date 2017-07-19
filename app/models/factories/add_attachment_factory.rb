@@ -2,7 +2,8 @@ module Factories
   class AddAttachmentFactory < ChangeFactory
     def build_from(params)
       file = build_file(params)
-      Changes::AddAttachment.create_with_file!(file)
+      attrs = change_request_params(params).merge(kyc_attachment: KycAttachment.new(file: file))
+      Changes::AddAttachment.create!(attrs)
     end
 
     private

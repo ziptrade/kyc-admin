@@ -1,6 +1,10 @@
 shared_context :shared_api_context do
+  def json_body
+    JSON.parse(response.body)
+  end
+
   def assert_response_body(expected)
-    actual_json_response = JSON.parse(response.body)
+    actual_json_response = json_body
     expect(actual_json_response).to eq(expected)
   end
 

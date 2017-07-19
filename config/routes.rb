@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   root to: 'application#welcome'
 
   namespace :api do
-    resources :kycs, only: [:create] do
-      resources :kyc_change_requests, only: [:create]
+    resources :kycs, only: %i[create show] do
+      resources :kyc_change_requests, only: %i[create show]
     end
   end
 end

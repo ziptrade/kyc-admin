@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::KycChangeRequestsController, type: :controller do
-  PERSONAL_DATA_ATTRIBUTES = {
+  CHANGE_REQUEST_DATA_ATTRIBUTES = { 'comment' => 'this is a comment' }.freeze
+  PERSONAL_DATA_ATTRIBUTES = CHANGE_REQUEST_DATA_ATTRIBUTES.merge(
     'first_name' => 'Roberto',
     'last_name' => 'Carlos',
     'id_number' => '10000000',
     'id_type' => 'DNI'
-  }.freeze
+  ).freeze
 
   def change_personal_data_for(kyc_id)
     {
@@ -17,17 +18,28 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
       }
     }
   end
+
+  def assert_has_attribute(attribute, atribute_name)
+    attributes = json_body['data']['attributes']
+    expect(attributes).to include(atribute_name => attribute)
+  end
+
+  def assert_has_relation_with(relation_name)
+    relationships = json_body['data']['relationships']
+    expect(relationships.keys).to include(relation_name)
+  end
+
   IMAGE_FILE = File.open(File.join(Rails.root, 'spec', 'images', 'bitcoin.png'))
   IMAGE_CONTENT_TYPE = 'image/png'.freeze
   ENCODE64_IMAGE = "data:#{IMAGE_CONTENT_TYPE};base64,#{Base64.encode64(IMAGE_FILE.read)}".freeze
 
-  ATTACHMENT_ATTRIBUTES = {
+  ATTACHMENT_ATTRIBUTES = CHANGE_REQUEST_DATA_ATTRIBUTES.merge(
     'attachment' => {
       file_data: ENCODE64_IMAGE,
       file_name: 'Document.png',
       file_content_type: IMAGE_CONTENT_TYPE
     }
-  }.freeze
+  ).freeze
 
   def add_attachment_for(kyc_id)
     {
@@ -68,6 +80,25 @@ RSpec.describe Api::KycChangeRequestsController, type: :controller do
         post :create, params: add_attachment_for(kyc_id)
         pending_change = Kyc.find(kyc_id).state
         expect(pending_change.change_requests.size).to eq(1)
+      end
+    end
+
+    context 'when requesting to show a change request previously add to the kyc' do
+      before do
+        kyc = Kyc.find(kyc_id)
+        kyc.add_change_request(change_request)
+        kyc.save!
+        get :show, params: { 'kyc_id' => kyc_id, 'id' => change_request.id }
+      end
+
+      context 'and the change request is an add attachment' do
+        let(:change_request) { create(:add_attachment) }
+
+        it 'should respond with a serialized add attachment' do
+          expect(response).to have_http_status :ok
+          assert_has_attribute(change_request.comment, 'comment')
+          assert_has_relation_with('kyc-attachment')
+        end
       end
     end
   end

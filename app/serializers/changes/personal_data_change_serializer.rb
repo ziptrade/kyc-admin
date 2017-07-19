@@ -1,7 +1,5 @@
 module Changes
-  class PersonalDataChangeSerializer
-    include JSONAPI::Serializer
-
+  class PersonalDataChangeSerializer < Changes::KycChangeRequestSerializer
     attribute :first_name
     attribute :last_name
     attribute :id_number

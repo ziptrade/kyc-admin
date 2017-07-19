@@ -1,6 +1,5 @@
 module Changes
-  class AddAttachmentSerializer
-    include JSONAPI::Serializer
+  class AddAttachmentSerializer < Changes::KycChangeRequestSerializer
     has_one :kyc_attachment
   end
 end
