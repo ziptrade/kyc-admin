@@ -8,6 +8,11 @@ module Api
       render json: JSONAPI::Serializer.serialize(change_request), status: :created
     end
 
+    def show
+      change_request = Changes::KycChangeRequest.find(params.require(:id))
+      render json: JSONAPI::Serializer.serialize(change_request), status: :ok
+    end
+
     private
 
     def change_request_from_params

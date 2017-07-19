@@ -7,7 +7,7 @@ module Factories
     private
 
     def personal_data_params(params)
-      params.permit(:first_name, :last_name, :id_number, :id_type)
+      params.permit(:first_name, :last_name, :id_number, :id_type).merge(change_request_params(params))
     end
   end
 end
