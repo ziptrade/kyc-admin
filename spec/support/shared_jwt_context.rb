@@ -1,5 +1,4 @@
 shared_context :shared_jwt_context do
-
   def encode_jwt(payload, secret, algorithm)
     JWT.encode payload, secret, algorithm
   end
@@ -22,10 +21,9 @@ shared_context :shared_jwt_context do
   end
 
   let(:private_data) do
-    {:user_auth_token => user_auth_token, redirect_to: redirect_to_path}
+    { user_auth_token: user_auth_token, redirect_to: redirect_to_path }
   end
 
-  let(:jwt_token) { encode_jwt( payload, jwt_config.hmac_secret, jwt_config.algorithm) }
+  let(:jwt_token) { encode_jwt(payload, jwt_config.hmac_secret, jwt_config.algorithm) }
   let(:jwt_decoder) { JWTAuthentication::Decoder.new(jwt_config) }
-
 end

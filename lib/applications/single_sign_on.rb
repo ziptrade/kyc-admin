@@ -1,6 +1,5 @@
 module Applications
   class SingleSignOn
-
     def initialize(auth_application, jwt_config)
       @auth_application = auth_application
       @jwt_config = jwt_config
@@ -22,7 +21,7 @@ module Applications
       raise "Invalid User auth token [#{user_auth_token}]" unless user.present?
       user
     end
-    
+
     def jwt_decoder
       JWTAuthentication::Decoder.new(@jwt_config)
     end

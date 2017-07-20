@@ -1,5 +1,4 @@
 shared_context :shared_api_context do
-
   include_context :shared_auth_context
 
   def json_body

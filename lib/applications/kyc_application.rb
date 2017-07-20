@@ -1,34 +1,27 @@
 module Applications
   class KYCApplication
-
-    def self.for parent, environment
-      self.send environment, parent
+    def self.for(web_application, environment)
+      send environment, web_application
     end
 
-    def self.development parent
-      self.new(parent).tap do |application|
-        application.use_hardcoded_jwt_config
-      end
+    def self.development(web_application)
+      new(web_application).tap(&:use_hardcoded_jwt_config)
     end
 
-    def self.test parent
-      self.new(parent).tap do |application|
-        application.use_hardcoded_jwt_config
-      end
+    def self.test(web_application)
+      new(web_application).tap(&:use_hardcoded_jwt_config)
     end
 
-    def self.production parent
-      self.new(parent).tap do |application|
-        application.use_jwt_from_env
-      end
+    def self.production(web_application)
+      new(web_application).tap(&:use_jwt_from_env)
     end
 
-    def initialize(parent)
-      @parent = parent
+    def initialize(web_application)
+      @web_application = web_application
     end
 
     def sso_subsystem
-      Applications::SingleSignOn.new @parent, @jwt_config
+      Applications::SingleSignOn.new @web_application, @jwt_config
     end
 
     def use_hardcoded_jwt_config

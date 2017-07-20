@@ -11,8 +11,7 @@ module JWTAuthentication
         algorithm: ENV['JWT_ALGORITHM']
       }
 
-      self.new(config)
-
+      new(config)
     end
 
     def self.for_development_and_test
@@ -24,12 +23,15 @@ module JWTAuthentication
         algorithm: 'HS256'
       }
 
-      self.new(config)
+      new(config)
     end
 
     def initialize(config)
-      @hmac_secret, @leeway, @issuer, @expires_in, @algorithm =
-        config[:hmac_secret], config[:leeway], config[:issuer], config[:expires_in], config[:algorithm]
+      @hmac_secret = config[:hmac_secret]
+      @leeway = config[:leeway]
+      @issuer = config[:issuer]
+      @expires_in = config[:expires_in]
+      @algorithm = config[:algorithm]
     end
   end
 end
