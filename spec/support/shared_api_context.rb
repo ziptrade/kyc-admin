@@ -1,4 +1,6 @@
 shared_context :shared_api_context do
+  include_context :shared_auth_context
+
   def json_body
     JSON.parse(response.body)
   end
@@ -55,8 +57,7 @@ shared_context :shared_api_context do
     it 'signs in user' do
       post action, format: :json
 
-      # TODO: Is there a Clearence helper available in test env to retrieve user/check signed in?
-      expect(@request.env[:clearance].current_user).to be_present
+      assert_user_is_signed_in(user)
     end
   end
 end
